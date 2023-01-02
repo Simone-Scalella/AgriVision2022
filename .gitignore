@@ -131,3 +131,7 @@ dmypy.json
 #dataset
 ravenna/*
 content/*
+
+#Data
+content2/*
+scl/*
