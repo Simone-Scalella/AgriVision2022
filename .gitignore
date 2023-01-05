@@ -131,7 +131,8 @@ dmypy.json
 #dataset
 ravenna/*
 content/*
-
+bands/*
+yield/*
 #Data
 content2/*
 scl/*
