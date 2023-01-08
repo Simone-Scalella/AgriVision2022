@@ -3,7 +3,7 @@ from os import listdir
 from os.path import isfile, join,isdir
 import shutil
 
-path = join(os.path.abspath(os.getcwd()),"scl")
+path = join(os.path.abspath(os.getcwd()),"scl","scl")
 pathdest = join(os.path.abspath(os.getcwd()),"sclOrdered")
 onlyfolders = [f for f in listdir(path) if (isdir(join(path, f)))]
 
