@@ -139,3 +139,5 @@ scl/*
 yield/*
 test/*
 sclordered/*
+lightning_logs/*
+backup scl/*
