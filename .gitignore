@@ -142,3 +142,4 @@ sclordered/*
 lightning_logs/*
 backup scl/*
 LSTM-and-GRU/*
+dataset/*
