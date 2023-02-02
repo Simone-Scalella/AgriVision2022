@@ -27,8 +27,9 @@ function setup() {
 }
 ```
 Il resto dello script è visibile in questo [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/geoT.ipynb).
-Inline-style: 
-![alt text]([http://url/to/img.png](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/2017-01-01.tiff))
+
+Immagine 1: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/image1.png)
 
 
 
