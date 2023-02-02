@@ -36,7 +36,7 @@ Immagine dei campi:
 Una volta scaricate tutte le immagini si è proceduto utilizzando la libreria gdal per aprire le immagini all'interno del file jupyter, e abbiamo iniziato a studiarne le dimensioni per proseguire con la fase di etl. Di seguito riportiamo le dodici bande di una immagine del campo agricolo.
 
 Bande dei campi: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/campi.png](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/bande_raw.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/bande_raw.png)
 
 
 
