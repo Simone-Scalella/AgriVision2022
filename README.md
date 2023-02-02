@@ -26,7 +26,7 @@ function setup() {
   }
 }
 ```
-Il resto dello script è visibile in questo [file]([https://www.sentinel-hub.com/](https://github.com/Accout-Personal/AgriVision2022/blob/main/geoT.ipynb)).
+Il resto dello script è visibile in questo [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/geoT.ipynb).
 
 
 
