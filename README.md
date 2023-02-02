@@ -8,4 +8,6 @@ Il progetto per il corso di computer vision e deep learning dell'anno accademico
 
 ## Recupero delle immagini
 
+Per acquisire le immagini dei campi agricoli abbiamo utilizzato sentinel hub [(link)](https://www.sentinel-hub.com/).
+
 
