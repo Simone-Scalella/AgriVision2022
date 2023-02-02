@@ -27,7 +27,9 @@ function setup() {
 }
 ```
 Il resto dello script è visibile in questo [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/geoT.ipynb).
+
 Di seguito riportiamo un esempio di immagine dei campi.
+
 Immagine dei campi: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/campi.png)
 
