@@ -30,7 +30,6 @@ Il resto dello script è visibile in questo [file](https://github.com/Accout-Per
 
 Di seguito riportiamo un esempio di immagine dei campi agricoli.
 
-Immagine dei campi: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/campi.png)
 
 Una volta scaricate tutte le immagini si è proceduto utilizzando la libreria gdal per aprire le immagini all'interno del file jupyter, e abbiamo iniziato a studiarne le dimensioni per proseguire con la fase di etl. Dall'analisi è emerso che tutte le immagini hanno le stesse dimensioni. Di seguito riportiamo le dodici bande di una immagine del campo agricolo.
