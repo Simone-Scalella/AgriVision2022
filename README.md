@@ -38,7 +38,20 @@ Una volta scaricate tutte le immagini si è proceduto utilizzando la libreria gd
 Bande dei campi: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/bande_raw.png)
 
+## Visualizzazione delle immagini
+
 Successivamente si è proceduto a creare una prima bozza delle serie temporali, per capire quali operazioni di etl erano necessario. Come prima cosa le immagini dei campi sono state ordinate sull'asse temporale; successivamente, si è creata una struttura dati a quattro dimensioni, che sono l'asse delle x, delle y, delle bande e del tempo, e al suo interno, seguendo l'ordine temporale definito precedentemente, sono state inserite tutte le immagini con le loro bande.
 Al termine di questa operazione siamo andati a calcolare gli indici vegetali d'interesse, che sono l'[NDVI](https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/indexdb/id_58.js) e l'[NDRE](https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/indexdb/id_223.js). Tale calcolo avviene combinando tra loro alcune bande appartenenti alle immagini dei campi.
+Successivamente si è proceduto con il calcolo dell'andamento medio degli indici, in quanto ogni pixel ha la sua serie temporale.
+Di seguito riportiamo le due serie temporali.
 
+Indice NDVI non pulito: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_raw.png)
 
+Indice NDRE non pulito: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndre_raw.png)
+
+Dalle immagini è possibile osservare diverse problematiche legate al fatto che i dati non sono stati puliti; infatti, nonostante gli indici abbiano un valore compreso tra -1 e 1, è possibile osservare dei picchi di valore molto superiore, inoltre, il picco massimo dovrebbe essere a Maggio, e noi lo troviamo molto prima. Ci sono altri picchi con valori anomali, e, infine, l'andamento degli indici durante l'anno è sbagliato.
+Terminata questa prima fase di creazione e analisi del dataset procediamo con la fase di etl.
+
+# ETL
