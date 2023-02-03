@@ -143,3 +143,6 @@ lightning_logs/*
 backup scl/*
 LSTM-and-GRU/*
 dataset/*
+dataset2/*
+previsioneOttima.h5
+previsioneOttimavgg19.h5
