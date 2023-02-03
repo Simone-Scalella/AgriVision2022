@@ -27,7 +27,7 @@ function setup() {
 }
 ```
 Il resto dello script è visibile in questo [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/geoT.ipynb).
-
+Oltre alle immagini il nostro dataset di partenza aveva anche una cartella scl e una cartella yield all'interno delle quali sono presenti altre immagini che utilizzeremo e descriveremo successivamente.
 Di seguito riportiamo un esempio di immagine dei campi agricoli.
 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/campi.png)
@@ -54,3 +54,8 @@ Dalle immagini è possibile osservare diverse problematiche legate al fatto che 
 Terminata questa prima fase di creazione e analisi del dataset procediamo con la fase di etl.
 
 # ETL
+
+In questa fase si è proceduto con la pulizia del dataset.
+All'interno delle immagini sono presenti dei pixel che non dobbiamo tenere in considerazione, infatti, sono immagini del campo agricolo coperte da nuvole, ombre di nuvole, e altre problematiche che invalidano i valori. Per ulteriori informazioni si può utilizzare il seguente [link](https://sentinels.copernicus.eu/web/sentinel/technical-guides/sentinel-2-msi/level-2a/algorithm).
+Per realizzare questa operazione di pulizia abbiamo utilizzato le immagini presenti nella cartella scl, la quale contiene un immagine dove i valori dei pixel sono associati a una specifica categoria. Questa categoria ci permette di discriminare i pixel non validi, infatti, ad ogni tipo di pixel è associato un valore intero.
+Lo 
