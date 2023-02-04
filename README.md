@@ -87,4 +87,13 @@ Si è notato che alcune immagini scl avevano i metadati rovinati, quindi, si è 
 ## Seconda fase di ETL
 
 Durante questa fase siamo andati a tagliare le porzioni d'interesse sia dai file scl che dai file .tiff, usando le coordinate degli shape file. Abbiamo utilizzato il metodo Mask della libreria rasterio, inoltre, per ogni nuova immagine abbiamo dovuto generare dei nuovi metadati. Il codice utilizzato si trova nel seguente file...?
-Al termine di questa operazione ci siamo resi conto che le dimensioni della maschera tagliata erano differenti rispetto a quelle del campo. Quindi, abbiamo utilizzato questa 
+Al termine di questa operazione ci siamo resi conto che le dimensioni della maschera tagliata erano più piccole rispetto a quelle del campo. Quindi, abbiamo utilizzato la libreria Resampling [(link)](https://rasterio.readthedocs.io/en/latest/topics/resampling.html#resampling-methods), di rasterio. Usando come parametro 'nearest' abbiamo effettuato un operazione di upsampling senza modificare il contenuto informativo della maschera. Al termine dell'esecuzione, le dimensioni delle maschere e dei campi erano uguali.
+Di seguito carichiamo un esempio del taglio della maschera (ridimensionata) e del campo.
+
+Maschera e campo: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/mask.png)
+
+A questo punto possiamo applicare la maschera al campo per togliere tutti i pixel che non sono d'interesse per le analisi. Il codice utilizzato si trova nel seguente file...?
+Di seguito carichiamo un esempio di campo filtrato.
+
+
