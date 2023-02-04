@@ -138,6 +138,15 @@ Serie temporali finali:
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
 
 La fase di ETL è finita, le curve che abbiamo ottenuto sono pulite e soddisfano tutti i requisiti relativi all'indice vegetale.
-Queste curve saranno utilizzate nella fase successiva, che è quella di addestramento dei modelli e previsione
+Queste curve saranno utilizzate nella fase successiva, che è quella di addestramento dei modelli e previsione.
+Le serie temporali sono state salvate in formato pickle per poter essere utilizzate nei file successivi.
 
 # Deep learning
+
+I modelli uttilizzati in questo task sono Neural Prophet, Fb Prophet, GRU e LSTM. Sono state scelte queste reti perchè rappresentano lo stato dell'arte, cioè, sono le reti più moderne e utilizzate per task di forecasting con serie temporali. Abbiamo proceduto nel seguente modo, le reti sono state addestrate con un diverso numero di epoche, tutte le reti sono state addestrate utilizzando la curva media dei pixel, infine, sono state fatte delle previsioni dando in input serie temporali diverse.
+L'obiettivo del task è quello di prevedere l'andamento degli indici vegetali, con particolare attenzione al picco massimo, che avviene agli inizi di Maggio. Quindi, le serie temporali date in input al modello, dopo l'addestramento, non saranno mai complete, infatti, saranno troncate prima di 60 giorni, poi di 90, in questo modo andiamo a prevedere il picco massimo, e infine, di 120 giorni, cioè, facciamo previsione con la serie temporale di un solo mese.
+Lo scopo è quello di aiutare l'agricoltore, che, se in possesso di queste informazioni, può intervenire, concimando il terreno, per aumentare la resa del suo campo.
+
+## Neural Prophet
+Neural Prophet è il successore di Fb Prophet, è una rete deep basata su pytorch, utilizzata per fare forecasting di serie temporali. Si può utilizzare questo [link](https://neuralprophet.com/) per accedere alla documentazione della rete.
+Il file in cui abbiamo implementato la rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/forecast.ipynb).
