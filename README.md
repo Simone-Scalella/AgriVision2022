@@ -103,9 +103,41 @@ A questo punto andiamo, nuovamente, a calcolare gli indici vegetali ndvi e ndre.
 Riportiamo di seguito un'immagine sull'andamento dell'ndvi di un pixel.
 
 NDVI dopo la maschera: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/afterMask.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_mask.png)
 
 Abbiamo eliminato picchi anomali e valori non corretti, però, dobbiamo migliorare la qualità della curva. Per fare questo utilizziamo una funzione di smoothing [(link)](https://github.com/cerlymarco/tsmoothie). Di seguito riportiamo un esempio del risultato ottenuto.
 
 NDVI con smoothing: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/afterMask.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+## Terza fase di ETL
+
+In questa fase siamo andati a pulire ulteriormente le curve, e poi, si è effettuata un'operazione di data augmentation.
+Dalle curve sono stati eliminati periodi temporali che non erano d'interesse per il progetto e i pixel che avevano sempre valore uguale a zero. Di seguito riportiamo tutte le curve dell'ndvi per ogni pixel, dopo questa operazione di pulizia.
+
+NDVI di tutti i pixel: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+Successivamente si è proceduto con l'operazione di data augmentation, utilizzando la libreria scikit-fda [(link)](https://fda.readthedocs.io/en/latest/auto_examples/plot_fpca.html).
+La FPCA ci permette di estrarre una funzione continua dalle nostre serie temporali, quindi, abbiamo una curva composta da 150 punti.
+Di seguito mostriamo l'immagine della funzione.
+
+FPCA: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+Ottenuta la funzione procediamo a sommarla a tutti i pixel, in questo modo aumentiamo le dimensioni delle serie temporali.
+Il risultato ottenuto non è ideale, possiamo osservare dalla prossima immagine, i picchi relativi ai valori reali, che possono discostare dalla funzione.
+
+Serie temporali più FPCA: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+Per risolvere il problema applichiamo nuovamente la funzione di smoothing che abbiamo usato precedentemente.
+Di seguito riportiamo i risultati ottenuti.
+
+Serie temporali finali: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+La fase di ETL è finita, le curve che abbiamo ottenuto sono pulite e soddisfano tutti i requisiti relativi all'indice vegetale.
+Queste curve saranno utilizzate nella fase successiva, che è quella di addestramento dei modelli e previsione
+
+# Deep learning
