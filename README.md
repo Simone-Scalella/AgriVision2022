@@ -61,4 +61,21 @@ Per realizzare questa operazione di pulizia abbiamo utilizzato le immagini prese
 Inoltre, abbiamo utilizzato le immagini presenti nella cartella yield. All'interno di questa cartella sono contenuti degli shape file relativi ai campi agricoli; le informazioni contenute in questi campi sono di varia natura, ad esempio abbiamo informazioni relative alla resa, il prodotto secco, etc..
 Di seguito riportiamo un esempio di immagini relative alla cartella scl e yield.
 
+Resa dei campi: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/campi_yield.png)
 
+Da questa immagine è possibile osservare come i campi 4 e 6 siano in realtà scomposti in due campi, quindi, utilizzando qgis abbiamo generato i poligoni convessi che rappresentavano tutto il campo.
+
+Immagine scl: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/scl_example.png)
+
+E' possibile osservare come l'immagine scl rappresenti una porzione dell'Italia, quindi, abbiamo bisogno di tagliare solo il pezzo relativo ai di interesse. La seguente immagine mostra le porzioni di interesse.
+
+Area di interesse: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ritaglio.png)
+
+Prima del taglio abbiamo dovuto effettuare una operazione di riordinamento dei file scl, in qunato si presentavano all'interno di diverse cartelle, quindi si è deciso di spostarle, in maniera ordinata, all'interno di un unica cartella. Il codice utilizzato è nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/autoRename.py).
+Di seguito carichiamo un immagine della directory precedente.
+
+Vecchia directory: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ritaglio.png)
