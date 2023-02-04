@@ -32,7 +32,7 @@ Di seguito riportiamo un esempio di immagine dei campi agricoli.
 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/campi.png)
 
-Una volta scaricate tutte le immagini si è proceduto utilizzando la libreria gdal per aprire le immagini all'interno del file jupyter, e abbiamo iniziato a studiarne le dimensioni per proseguire con la fase di etl. Dall'analisi è emerso che tutte le immagini hanno le stesse dimensioni. Di seguito riportiamo le dodici bande di una immagine del campo agricolo.
+Una volta scaricate tutte le immagini si è proceduto utilizzando la libreria gdal per aprire le immagini all'interno del file jupyter, e abbiamo iniziato a studiarne le dimensioni per proseguire con la fase di etl. Dall'analisi è emerso che tutte le immagini hanno le stesse dimensioni. Di seguito riportiamo le dodici bande di un'immagine del campo agricolo.
 
 Bande dei campi: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/bande_raw.png)
@@ -59,7 +59,7 @@ Terminata questa prima fase di creazione e analisi del dataset procediamo con la
 
 In questa fase si è proceduto con la pulizia del dataset.
 All'interno delle immagini sono presenti dei pixel che non dobbiamo tenere in considerazione, infatti, sono immagini del campo agricolo coperte da nuvole, ombre di nuvole, e altre problematiche che invalidano i valori. Per ulteriori informazioni si può utilizzare il seguente [link](https://sentinels.copernicus.eu/web/sentinel/technical-guides/sentinel-2-msi/level-2a/algorithm).
-Per realizzare questa operazione di pulizia abbiamo utilizzato le immagini presenti nella cartella scl, la quale contiene un immagine dove i valori dei pixel sono associati a una specifica categoria. Questa categoria ci permette di discriminare i pixel non validi, infatti, ad ogni tipo di pixel è associato un valore intero.
+Per realizzare questa operazione di pulizia abbiamo utilizzato le immagini presenti nella cartella scl, la quale contiene un'immagine dove i valori dei pixel sono associati a una specifica categoria. Questa categoria ci permette di discriminare i pixel non validi, infatti, ad ogni tipo di pixel è associato un valore intero.
 Inoltre, abbiamo utilizzato le immagini presenti nella cartella yield. All'interno di questa cartella sono contenuti degli shape file relativi ai campi agricoli; le informazioni contenute in questi campi sono di varia natura, ad esempio abbiamo informazioni relative alla resa, il prodotto secco, etc..
 Di seguito riportiamo un esempio di immagini relative alla cartella scl e yield.
 
@@ -77,7 +77,7 @@ Area di interesse:
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ritaglio.png)
 
 Prima del taglio abbiamo dovuto effettuare una operazione di riordinamento dei file scl, in qunato si presentavano all'interno di diverse cartelle, quindi si è deciso di spostarle, in maniera ordinata, all'interno di un unica cartella. Il codice utilizzato è nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/autoRename.py).
-Di seguito carichiamo un immagine della directory precedente.
+Di seguito carichiamo un'immagine della directory precedente.
 
 Vecchia directory: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/scl_directory.png)
@@ -86,7 +86,7 @@ Si è notato che alcune immagini scl avevano i metadati rovinati, quindi, si è 
 
 ## Seconda fase di ETL
 
-Durante questa fase siamo andati a tagliare le porzioni d'interesse sia dai file scl che dai file .tiff, usando le coordinate degli shape file. Abbiamo utilizzato il metodo Mask della libreria rasterio, inoltre, per ogni nuova immagine abbiamo dovuto generare dei nuovi metadati. Il codice utilizzato si trova nel seguente file...?
+Durante questa fase siamo andati a tagliare le porzioni d'interesse sia dai file scl che dai file .tiff, usando le coordinate degli shape file. Abbiamo utilizzato il metodo Mask della libreria rasterio [(link)](https://rasterio.readthedocs.io/en/latest/api/rasterio.mask.html), inoltre, per ogni nuova immagine abbiamo dovuto generare dei nuovi metadati. Il codice utilizzato si trova nel seguente file...?
 Al termine di questa operazione ci siamo resi conto che le dimensioni della maschera tagliata erano più piccole rispetto a quelle del campo. Quindi, abbiamo utilizzato la libreria Resampling [(link)](https://rasterio.readthedocs.io/en/latest/topics/resampling.html#resampling-methods), di rasterio. Usando come parametro 'nearest' abbiamo effettuato un operazione di upsampling senza modificare il contenuto informativo della maschera. Al termine dell'esecuzione, le dimensioni delle maschere e dei campi erano uguali.
 Di seguito carichiamo un esempio del taglio della maschera (ridimensionata) e del campo.
 
@@ -96,4 +96,16 @@ Maschera e campo:
 A questo punto possiamo applicare la maschera al campo per togliere tutti i pixel che non sono d'interesse per le analisi. Il codice utilizzato si trova nel seguente file...?
 Di seguito carichiamo un esempio di campo filtrato.
 
+Campo filtrato: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/afterMask.png)
 
+A questo punto andiamo, nuovamente, a calcolare gli indici vegetali ndvi e ndre.
+Riportiamo di seguito un'immagine sull'andamento dell'ndvi di un pixel.
+
+NDVI dopo la maschera: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/afterMask.png)
+
+Abbiamo eliminato picchi anomali e valori non corretti, però, dobbiamo migliorare la qualità della curva. Per fare questo utilizziamo una funzione di smoothing [(link)](https://github.com/cerlymarco/tsmoothie). Di seguito riportiamo un esempio del risultato ottenuto.
+
+NDVI con smoothing: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/afterMask.png)
