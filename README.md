@@ -55,6 +55,8 @@ Terminata questa prima fase di creazione e analisi del dataset procediamo con la
 
 # ETL
 
+## Prima fase di ETL
+
 In questa fase si è proceduto con la pulizia del dataset.
 All'interno delle immagini sono presenti dei pixel che non dobbiamo tenere in considerazione, infatti, sono immagini del campo agricolo coperte da nuvole, ombre di nuvole, e altre problematiche che invalidano i valori. Per ulteriori informazioni si può utilizzare il seguente [link](https://sentinels.copernicus.eu/web/sentinel/technical-guides/sentinel-2-msi/level-2a/algorithm).
 Per realizzare questa operazione di pulizia abbiamo utilizzato le immagini presenti nella cartella scl, la quale contiene un immagine dove i valori dei pixel sono associati a una specifica categoria. Questa categoria ci permette di discriminare i pixel non validi, infatti, ad ogni tipo di pixel è associato un valore intero.
@@ -78,4 +80,11 @@ Prima del taglio abbiamo dovuto effettuare una operazione di riordinamento dei f
 Di seguito carichiamo un immagine della directory precedente.
 
 Vecchia directory: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ritaglio.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/scl_directory.png)
+
+Si è notato che alcune immagini scl avevano i metadati rovinati, quindi, si è proceduto a rigenerarli. Il codice utilizzato è nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/geoTLeoMakeTransform.ipynb).
+
+## Seconda fase di ETL
+
+Durante questa fase siamo andati a tagliare le porzioni d'interesse sia dai file scl che dai file .tiff, usando le coordinate degli shape file. Abbiamo utilizzato il metodo Mask della libreria rasterio, inoltre, per ogni nuova immagine abbiamo dovuto generare dei nuovi metadati. Il codice utilizzato si trova nel seguente file...?
+Al termine di questa operazione ci siamo resi conto che le dimensioni della maschera tagliata erano differenti rispetto a quelle del campo. Quindi, abbiamo utilizzato questa 
