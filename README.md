@@ -179,3 +179,17 @@ Riportiamo di seguito i risultati ottenuti con questa rete, le metriche calcolat
 | MAE  | 100  | 90 giorni  | 0.013353 |
 | MSE  | 100  | 90 giorni  | 0.000226 |
 | RMSE  | 100  | 90 giorni  | 0.015033 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 25  | 120 giorni  | 0.009081 |
+| MSE  | 25  | 120 giorni  | 0.000146 |
+| RMSE  | 25  | 120 giorni  | 0.012083 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 50  | 120 giorni  | 0.011511 |
+| MSE  | 50  | 120 giorni  | 0.000185 |
+| RMSE  | 50  | 120 giorni  | 0.013601 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 100  | 120 giorni  | 0.00995 |
+| MSE  | 100  | 120 giorni  | 0.000154 |
+| RMSE  | 100  | 120 giorni  | 0.01241 |
+
+Come si può osservare dai valore della tabella, questa rete restituisce dei risultati ottimi, molto vicini a quelli reali.
