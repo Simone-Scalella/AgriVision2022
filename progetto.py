@@ -10,8 +10,8 @@ from sentinelhub import MimeType, CRS, BBox, SentinelHubRequest, SentinelHubDown
 
 config = SHConfig()
 
-config.sh_client_id = '573a5a64-4277-4464-99b6-ccc7440dd911'
-config.sh_client_secret = 'x^X%K7Yn@w<)Jl?177A/](~4Te96x#vpzKun8xCE'
+config.sh_client_id = 'sentinel id'
+config.sh_client_secret = 'password'
 config.save()
 
 evalscript = """
