@@ -285,3 +285,34 @@ Riportiamo di seguito i risultati ottenuti con questa rete, le metriche calcolat
 | MSE  | 100  | 120 giorni  | 0,000009 | GRU |
 | RMSE  | 100  | 120 giorni  | 0.003 | GRU |
 
+Si può osservare dalla tabella, come le due reti restituiscano un risultato eccellente.
+Di seguito carichiamo delle immagini che mostrano un esempio di predizione di entrambe le reti. Negli esempi viene fatta una predizione di 120 e le reti sono state addestrate sulla curva media.
+
+LSTM: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+GRU: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+# Conclusioni
+
+Il task è stato completato con successo. Le curve ottenute sono state utilizzate per addestrare e testare i modelli. I modelli ottenuti predicono gli indici vegetali con grande precisione.
+
+# Yield prediction
+
+Terminato il task di forecasting, si è proceduto con il task di regressione.
+L'obiettivo di questo task è quello di prevedere la resa di un pezzetto di campo, a partire da un immagine.
+
+# Estrazione dell'informazione
+
+Per creare il dataset siamo partiti da qgis, in questo caso abbiamo effettuato una conversione di tipo, infatti, l'informazione d'interesse era contenuta negli shape file dei campi, quindi, gli abbiamo convertiti in file raster e gli abbiamo salvati.
+
+# ETL
+
+Per questo task la fase di etl è stata più semplice rispetto al task precedente, perchè abbiamo utilizzato le immagine dei campi che avevamo precedentemente pulito.
+Successivamente, abbiamo creato delle nuove strutture dati che mantenessero la corrispondenza tra i pixel e la resa. Le nuove strutture dati contenevano i pixel in maniera sequenziale, quindi avevamo una sola dimensione, e non più X e Y. Durante questa fase abbiamo anche effettuato un'operazione di normalizzazione dei valori delle bande, dividendo per il valore massimo.
+Abbiamo utilizzato la funzione di smoothing usata precedentemente per migliorare la qualità dei valori dei pixel.
+Di seguito riportiamo un primo esempio di immagine. Le nuove immagini che abbiamo generato hanno sull'asse delle X le bande, e sull'asse delle Y il tempo.
+
+First example: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
