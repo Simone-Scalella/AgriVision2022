@@ -150,3 +150,67 @@ Lo scopo è quello di aiutare l'agricoltore, che, se in possesso di queste infor
 ## Neural Prophet
 Neural Prophet è il successore di Fb Prophet, è una rete deep basata su pytorch, utilizzata per fare forecasting di serie temporali. Si può utilizzare questo [link](https://neuralprophet.com/) per accedere alla documentazione della rete.
 Il file in cui abbiamo implementato la rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/forecast.ipynb).
+Riportiamo di seguito i risultati ottenuti con questa rete, le metriche calcolate sono la mean absolute error (MAE), la mean squared error (MSE) e la Root Mean Squared Error (RMSE).
+
+### Risultati
+
+| Metrica | Numero di epoche  | Scostamento | Valore |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 25  | 60 giorni  | 0.019115 |
+| MSE  | 25  | 60 giorni  | 0.000503 |
+| RMSE  | 25  | 60 giorni  | 0.022428 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 50  | 60 giorni  | 0.022401 |
+| MSE  | 50  | 60 giorni  | 0.000577 |
+| RMSE  | 50  | 60 giorni  | 0.024021 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 100  | 60 giorni  | 0.012909 |
+| MSE  | 100  | 60 giorni  | 0.00023 |
+| RMSE  | 100  | 60 giorni  | 0.015166 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 25  | 90 giorni  | 0.015523 |
+| MSE  | 25  | 90 giorni  | 0.000322 |
+| RMSE  | 25  | 90 giorni  | 0.017944 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 50  | 90 giorni  | 0.017523 |
+| MSE  | 50  | 90 giorni  | 0.000374 |
+| RMSE  | 50  | 90 giorni  | 0.019339 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 100  | 90 giorni  | 0.013353 |
+| MSE  | 100  | 90 giorni  | 0.000226 |
+| RMSE  | 100  | 90 giorni  | 0.015033 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 25  | 120 giorni  | 0.009081 |
+| MSE  | 25  | 120 giorni  | 0.000146 |
+| RMSE  | 25  | 120 giorni  | 0.012083 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 50  | 120 giorni  | 0.011511 |
+| MSE  | 50  | 120 giorni  | 0.000185 |
+| RMSE  | 50  | 120 giorni  | 0.013601 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 100  | 120 giorni  | 0.00995 |
+| MSE  | 100  | 120 giorni  | 0.000154 |
+| RMSE  | 100  | 120 giorni  | 0.01241 |
+
+Come si può osservare dai valore della tabella, questa rete restituisce dei risultati ottimi, molto vicini a quelli reali.
+Di seguito carichiamo un esempio di predizione, dove alla rete è stata data una serie temporale di 30 giorni, e ha predetto i successivi 120 giorni.
+
+Neural Prophet: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+## Fb Prophet
+
+Un'altra rete implementata è Fb Prophet, una rete deep che permette di fare previsioni di serie temporali. Si può utilizzare questo [link](https://facebook.github.io/prophet/) per accedere alla documentazione della rete.
+In questo progetto non è stato possibile utilizzare Fb Prophet, in quanto, il framework utilizzato, permette di fare previsioni solo sulla serie temporale utilizzata per l'addestramento. A differenza di Neural Prophet che si addestrava con la curva media, e faceva previsioni su altri pixel.
+Sono stati effettuati dei tentativi di previsione con questa rete, prima di scegliere di non utilizzarla.
+I test effettuati prevedevano l'addestramento della rete con una serie che era già troncata.
+I risultati ottenuti non sono stati soddisfacenti, in quanto la rete prevedeva bene solo dopo il picco.
+Di seguito mostriamo un esempio di previsione di Fb Prophet, dopo averlo addestrato con la serie temporale media troncata di 70 giorni, quindi, a ridosso del picco massimo.
+
+Fb Prophet: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+Il modello non riesce a fare una previsione corretta, quindi, si è deciso di non utilizzarlo.
+
+## GRU and LSTM
+
