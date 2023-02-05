@@ -150,3 +150,32 @@ Lo scopo è quello di aiutare l'agricoltore, che, se in possesso di queste infor
 ## Neural Prophet
 Neural Prophet è il successore di Fb Prophet, è una rete deep basata su pytorch, utilizzata per fare forecasting di serie temporali. Si può utilizzare questo [link](https://neuralprophet.com/) per accedere alla documentazione della rete.
 Il file in cui abbiamo implementato la rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/forecast.ipynb).
+Riportiamo di seguito i risultati ottenuti con questa rete, le metriche calcolate sono la mean absolute error (MAE), la mean squared error (MSE) e la Root Mean Squared Error (RMSE).
+
+### Risultati
+
+| Metrica | Numero di epoche  | Scostamento | Valore |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 25  | 60 giorni  | 0.019115 |
+| MSE  | 25  | 60 giorni  | 0.000503 |
+| RMSE  | 25  | 60 giorni  | 0.022428 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 50  | 60 giorni  | 0.022401 |
+| MSE  | 50  | 60 giorni  | 0.000577 |
+| RMSE  | 50  | 60 giorni  | 0.024021 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 100  | 60 giorni  | 0.012909 |
+| MSE  | 100  | 60 giorni  | 0.00023 |
+| RMSE  | 100  | 60 giorni  | 0.015166 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 25  | 90 giorni  | 0.015523 |
+| MSE  | 25  | 90 giorni  | 0.000322 |
+| RMSE  | 25  | 90 giorni  | 0.017944 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 50  | 90 giorni  | 0.017523 |
+| MSE  | 50  | 90 giorni  | 0.000374 |
+| RMSE  | 50  | 90 giorni  | 0.019339 |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 100  | 90 giorni  | 0.013353 |
+| MSE  | 100  | 90 giorni  | 0.000226 |
+| RMSE  | 100  | 90 giorni  | 0.015033 |
