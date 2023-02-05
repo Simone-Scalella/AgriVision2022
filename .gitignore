@@ -146,4 +146,4 @@ dataset/*
 dataset2/*
 previsioneOttima.h5
 previsioneOttimavgg19.h5
-password.txt
+/password.txt
