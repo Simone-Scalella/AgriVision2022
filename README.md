@@ -215,4 +215,73 @@ Il modello non riesce a fare una previsione corretta, quindi, si è deciso di no
 ## GRU and LSTM
 
 Altre due reti che sono state utilizzate sono GRU e LSTM. Queste due reti le abbiamo implementate nello stesso file perchè sono simili, infatti, GRU può essere considerata una variante di LSTM, entrambe sono progettate in modo simile, e, in alcuni casi, producono risultati molto simili. Si può utilizzare questo [link]([https://neuralprophet.com/](https://towardsdatascience.com/understanding-gru-networks-2ef37df6c9be)) per accedere alla documentazione delle reti.
-Il file in cui abbiamo implementato le rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/forecast.ipynb).
+Il file in cui abbiamo implementato le rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/LSTM-GRU.ipynb).
+Riportiamo di seguito i risultati ottenuti con questa rete, le metriche calcolate sono la mean absolute error (MAE), la mean squared error (MSE) e la Root Mean Squared Error (RMSE).
+
+### Risultati
+
+| Metrica | Numero di epoche  | Scostamento | Valore | Rete |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| MAE  | 25  | 60 giorni  | 0.020991 | LSTM |
+| MSE  | 25  | 60 giorni  | 0.000674 | LSTM |
+| RMSE  | 25  | 60 giorni  | 0.025962 | LSTM |
+| MAE  | 25  | 60 giorni  | 0.026453 | GRU |
+| MSE  | 25  | 60 giorni  | 0.001152 | GRU |
+| RMSE  | 25  | 60 giorni  | 0.033941 | GRU |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 50  | 60 giorni  | 0.006274 | LSTM |
+| MSE  | 50  | 60 giorni  | 6.6e-05 | LSTM |
+| RMSE  | 50  | 60 giorni  | 0.008124 | LSTM |
+| MAE  | 50  | 60 giorni  | 0.010113 | GRU |
+| MSE  | 50  | 60 giorni  | 0.000168 | GRU |
+| RMSE  | 50  | 60 giorni  | 0.012961 | GRU |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 100  | 60 giorni  | 0.003114 | LSTM |
+| MSE  | 100  | 60 giorni  | 1.2e-05 | LSTM |
+| RMSE  | 100  | 60 giorni  | 0.003464 | LSTM |
+| MAE  | 100  | 60 giorni  | 0.003113 | GRU |
+| MSE  | 100  | 60 giorni  | 1.2e-05 | GRU |
+| RMSE  | 100  | 60 giorni  | 0.003464 | GRU |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 25  | 90 giorni  | 0.027625 | LSTM |
+| MSE  | 25  | 90 giorni  | 0.001239 | LSTM |
+| RMSE  | 25  | 90 giorni  | 0.035199 | LSTM |
+| MAE  | 25  | 90 giorni  | 0.034797 | GRU |
+| MSE  | 25  | 90 giorni  | 0.001911 | GRU |
+| RMSE  | 25  | 90 giorni  | 0.043715 | GRU |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 50  | 90 giorni  | 0.006617 | LSTM |
+| MSE  | 50  | 90 giorni  | 8.6e-05 | LSTM |
+| RMSE  | 50  | 90 giorni  | 0.009274 | LSTM |
+| MAE  | 50  | 90 giorni  | 0.005844 | GRU |
+| MSE  | 50  | 90 giorni  | 5.6e-05 | GRU |
+| RMSE  | 50  | 90 giorni  | 0.007483 | GRU |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 100  | 90 giorni  | 0.003008 | LSTM |
+| MSE  | 100  | 90 giorni  | 1.1e-05 | LSTM |
+| RMSE  | 100  | 90 giorni  | 0.003317 | LSTM |
+| MAE  | 100  | 90 giorni  | 0.002748 | GRU |
+| MSE  | 100  | 90 giorni  | 1.1e-05 | GRU |
+| RMSE  | 100  | 90 giorni  | 0.003317 | GRU |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 25  | 120 giorni  | 0.027043 | LSTM |
+| MSE  | 25  | 120 giorni  | 0.001183 | LSTM |
+| RMSE  | 25  | 120 giorni  | 0.034395 | LSTM |
+| MAE  | 25  | 120 giorni  | 0.02039 | GRU |
+| MSE  | 25  | 120 giorni  | 0.000717 | GRU |
+| RMSE  | 25  | 120 giorni  | 0.026777 | GRU |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 50  | 120 giorni  | 0.007311 | LSTM |
+| MSE  | 50  | 120 giorni  | 0,00009 | LSTM |
+| RMSE  | 50  | 120 giorni  | 0.009487 | LSTM |
+| MAE  | 50  | 120 giorni  | 0.012483 | GRU |
+| MSE  | 50  | 120 giorni  | 0.000241 | GRU |
+| RMSE  | 50  | 120 giorni  | 0.015524 | GRU |
+| ------------- | ------------- | ------------- | ------------- |
+| MAE  | 100  | 120 giorni  | 0.003187 | LSTM |
+| MSE  | 100  | 120 giorni  | 1.2e-05 | LSTM |
+| RMSE  | 100  | 120 giorni  | 0.003464 | LSTM |
+| MAE  | 100  | 120 giorni  | 0.00268 | GRU |
+| MSE  | 100  | 120 giorni  | 0,000009 | GRU |
+| RMSE  | 100  | 120 giorni  | 0.003 | GRU |
+
