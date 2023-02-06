@@ -316,3 +316,30 @@ Di seguito riportiamo un primo esempio di immagine. Le nuove immagini che abbiam
 
 First example: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+L'ultima operazione di ETL prevede l'utilizzo della funzione [SplineInterpolation](https://fda.readthedocs.io/en/latest/modules/autosummary/skfda.representation.interpolation.SplineInterpolation.html) che ci ha permesso di ottenere dei valori nel continuo. In questo modo abbiamo aumentato la lunghezza della serie temporale e ne abbiamo migliorato, ulteriormente, la qualità.
+Di seguito riportiamo un esempio di immagine finale del pixel.
+
+Final image: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+Infine, abbiamo eliminato i pixel che avevano un valore della resa sbagliato, poi abbiamo salvato i dati in formato pickle.
+
+# Deep learning
+
+In questa fase, come prima cosa, siamo andati a dividere il dataset in training e test, facendo una suddivisione randomica. Poi abbiamo salvato le immagini dei pixel all'interno delle corrispondenti cartelle.
+
+## Problematiche nella fase di Deep learning
+
+Per completare questo task, inizialmente, si era deciso di utizzare due reti che erano VGG16 e VGG19, al seguente [link](https://keras.io/api/applications/vgg/) potete trovare la documentazione delle reti. Dopo aver implementato le reti abbiamo proceduto con la fase di training e test.
+Al termine di quest'ultima siamo andati a effettuare delle predizioni, per controllare il risultato che la rete ci generava.
+Purtroppo, la rete non generava risultati accettabili, in quanto erano tutti molto vicini al valore medio della resa.
+Di seguito riportiamo uno scatter plot dove sugli assi abbiamo il valore reale della resa di un pixel e il valore predetto della resa di quel pixel.
+
+Scatter error: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+## Tentativi e soluzione
+
+Per cercare di risolvere questo problema, abbiamo iniziato una fase di diagnosi, per cercare di capire cosa generasse questo problema sull'addestramento dei modelli. Abbiamo fatto diversi tentativi cambiando l'architettura della rete, provando ad aggiungere e rimuovere strati densi, coon diverso numero di neuroni. Abbiamo provato diverse combinazioni di funzioni di attivazione e ottimizzatori. Abbiamo provato a implementare un'altra rete che è mobileNet_V2, l'abbiamo addestrata e testata, però, abbiamo sempre ottenuto gli stessi risultati negativi. Le reti erano addestrate sul dataset ImageNet, quindi, abbiamo provato a sbloccare dei layer convoluzionali, ma senza successo. Però, tutti questi tentativi ci hanno portato a pensare che il problema non fosse la rete, ma il dataset.
+Abbiamo iniziato a generare diversi tipi di immagini, aumentandone le dimensioni, mettendo la stessa immagine in serie e in parallelo. Abbiamo usato immagini più piccole, riducendo la serie temporale a 30 giorni, abbiamo cercato di aumentare le differenze nelle immagini. Purtroppo, tutti questi tentativi non hanno migliorato l'addestramento delle reti.
