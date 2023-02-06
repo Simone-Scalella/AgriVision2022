@@ -132,10 +132,9 @@ Serie temporali più FPCA:
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/Fpca%2BTimeSeries.png)
 
 Per risolvere il problema applichiamo nuovamente la funzione di smoothing che abbiamo usato precedentemente.
-Di seguito riportiamo i risultati ottenuti.
+Di seguito riportiamo le curve dell'indice vegetale che abbiamo ottenuto.
 
-Serie temporali finali: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/Final%20Time%20Series.png)
 
 La fase di ETL è finita, le curve che abbiamo ottenuto sono pulite e soddisfano tutti i requisiti relativi all'indice vegetale.
 Queste curve saranno utilizzate nella fase successiva, che è quella di addestramento dei modelli e previsione.
@@ -149,7 +148,7 @@ Lo scopo è quello di aiutare l'agricoltore, che, se in possesso di queste infor
 
 ## Neural Prophet
 Neural Prophet è il successore di Fb Prophet, è una rete deep basata su pytorch, utilizzata per fare forecasting di serie temporali. Si può utilizzare questo [link](https://neuralprophet.com/) per accedere alla documentazione della rete.
-Il file in cui abbiamo implementato la rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/forecast.ipynb).
+Il file in cui abbiamo implementato la rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/NeuralProphet.ipynb).
 Riportiamo di seguito i risultati ottenuti con questa rete, le metriche calcolate sono la mean absolute error (MAE), la mean squared error (MSE) e la Root Mean Squared Error (RMSE).
 
 ### Risultati
@@ -196,11 +195,12 @@ Come si può osservare dai valore della tabella, questa rete restituisce dei ris
 Di seguito carichiamo un esempio di predizione, dove alla rete è stata data una serie temporale di 30 giorni, e ha predetto i successivi 120 giorni.
 
 Neural Prophet: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/NeuralProphet.png)
 
 ## Fb Prophet
 
 Un'altra rete implementata è Fb Prophet, una rete deep che permette di fare previsioni di serie temporali. Si può utilizzare questo [link](https://facebook.github.io/prophet/) per accedere alla documentazione della rete.
+Il file in cui abbiamo implementato la rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/ProhetTest.ipynb).
 In questo progetto non è stato possibile utilizzare Fb Prophet, in quanto, il framework utilizzato, permette di fare previsioni solo sulla serie temporale utilizzata per l'addestramento. A differenza di Neural Prophet che si addestrava con la curva media, e faceva previsioni su altri pixel.
 Sono stati effettuati dei tentativi di previsione con questa rete, prima di scegliere di non utilizzarla.
 I test effettuati prevedevano l'addestramento della rete con una serie che era già troncata.
@@ -208,7 +208,7 @@ I risultati ottenuti non sono stati soddisfacenti, in quanto la rete prevedeva b
 Di seguito mostriamo un esempio di previsione di Fb Prophet, dopo averlo addestrato con la serie temporale media troncata di 70 giorni, quindi, a ridosso del picco massimo.
 
 Fb Prophet: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/FbProphet.png)
 
 Il modello non riesce a fare una previsione corretta, quindi, si è deciso di non utilizzarlo.
 
@@ -289,10 +289,10 @@ Si può osservare dalla tabella, come le due reti restituiscano un risultato ecc
 Di seguito carichiamo delle immagini che mostrano un esempio di predizione di entrambe le reti. Negli esempi viene fatta una predizione di 120 e le reti sono state addestrate sulla curva media.
 
 LSTM: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/LSTM.png)
 
 GRU: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/GRU.png)
 
 # Conclusioni
 
@@ -308,20 +308,20 @@ L'obiettivo di questo task è quello di prevedere la resa di un pezzetto di camp
 Per creare il dataset siamo partiti da qgis, in questo caso abbiamo effettuato una conversione di tipo, infatti, l'informazione d'interesse era contenuta negli shape file dei campi, quindi, gli abbiamo convertiti in file raster e gli abbiamo salvati.
 
 # ETL
-
+Il codice utilizzato per questa fase è disponibile nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/impResa.ipynb).
 Per questo task la fase di etl è stata più semplice rispetto al task precedente, perchè abbiamo utilizzato le immagine dei campi che avevamo precedentemente pulito.
 Successivamente, abbiamo creato delle nuove strutture dati che mantenessero la corrispondenza tra i pixel e la resa. Le nuove strutture dati contenevano i pixel in maniera sequenziale, quindi avevamo una sola dimensione, e non più X e Y. Durante questa fase abbiamo anche effettuato un'operazione di normalizzazione dei valori delle bande, dividendo per il valore massimo.
 Abbiamo utilizzato la funzione di smoothing usata precedentemente per migliorare la qualità dei valori dei pixel.
 Di seguito riportiamo un primo esempio di immagine. Le nuove immagini che abbiamo generato hanno sull'asse delle X le bande, e sull'asse delle Y il tempo.
 
 First example: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/image1.png)
 
 L'ultima operazione di ETL prevede l'utilizzo della funzione [SplineInterpolation](https://fda.readthedocs.io/en/latest/modules/autosummary/skfda.representation.interpolation.SplineInterpolation.html) che ci ha permesso di ottenere dei valori nel continuo. In questo modo abbiamo aumentato la lunghezza della serie temporale e ne abbiamo migliorato, ulteriormente, la qualità.
 Di seguito riportiamo un esempio di immagine finale del pixel.
 
 Final image: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/150x12.png)
 
 Infine, abbiamo eliminato i pixel che avevano un valore della resa sbagliato, poi abbiamo salvato i dati in formato pickle.
 
@@ -337,7 +337,7 @@ Purtroppo, la rete non generava risultati accettabili, in quanto erano tutti mol
 Di seguito riportiamo uno scatter plot dove sugli assi abbiamo il valore reale della resa di un pixel e il valore predetto della resa di quel pixel.
 
 Scatter error: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/scatter_error.png)
 
 ## Tentativi e soluzione
 
