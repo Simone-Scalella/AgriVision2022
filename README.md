@@ -200,8 +200,10 @@ Neural Prophet:
 ## Fb Prophet
 
 Un'altra rete implementata è Fb Prophet, una rete deep che permette di fare previsioni di serie temporali. Si può utilizzare questo [link](https://facebook.github.io/prophet/) per accedere alla documentazione della rete.
+
 Il file in cui abbiamo implementato la rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/ProhetTest.ipynb).
 In questo progetto non è stato possibile utilizzare Fb Prophet, in quanto, il framework utilizzato, permette di fare previsioni solo sulla serie temporale utilizzata per l'addestramento. A differenza di Neural Prophet che si addestrava con la curva media, e faceva previsioni su altri pixel.
+
 Sono stati effettuati dei tentativi di previsione con questa rete, prima di scegliere di non utilizzarla.
 I test effettuati prevedevano l'addestramento della rete con una serie che era già troncata.
 I risultati ottenuti non sono stati soddisfacenti, in quanto la rete prevedeva bene solo dopo il picco.
