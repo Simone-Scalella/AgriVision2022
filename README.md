@@ -28,6 +28,7 @@ function setup() {
 ```
 Il resto dello script è visibile in questo [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/ScaricaDataset.ipynb).
 Oltre alle immagini il nostro dataset di partenza aveva anche una cartella scl e una cartella yield all'interno delle quali sono presenti altre immagini che utilizzeremo e descriveremo successivamente.
+
 Di seguito riportiamo un esempio di immagine dei campi agricoli.
 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/campi.png)
@@ -40,6 +41,7 @@ Bande dei campi:
 ## Visualizzazione delle serie temporali
 
 Successivamente si è proceduto a creare una prima bozza delle serie temporali, per capire quali operazioni di etl erano necessario. Come prima cosa le immagini dei campi sono state ordinate sull'asse temporale; successivamente, si è creata una struttura dati a quattro dimensioni, che sono l'asse delle x, delle y, delle bande e del tempo, e al suo interno, seguendo l'ordine temporale definito precedentemente, sono state inserite tutte le immagini con le loro bande.
+
 Al termine di questa operazione siamo andati a calcolare gli indici vegetali d'interesse, che sono l'[NDVI](https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/indexdb/id_58.js) e l'[NDRE](https://custom-scripts.sentinel-hub.com/custom-scripts/sentinel-2/indexdb/id_223.js). Tale calcolo avviene combinando tra loro alcune bande appartenenti alle immagini dei campi.
 Successivamente si è proceduto con il calcolo dell'andamento medio degli indici, in quanto ogni pixel ha la sua serie temporale.
 Di seguito riportiamo le due serie temporali.
@@ -59,6 +61,7 @@ Terminata questa prima fase di creazione e analisi del dataset procediamo con la
 
 In questa fase si è proceduto con la pulizia del dataset.
 All'interno delle immagini sono presenti dei pixel che non dobbiamo tenere in considerazione, infatti, sono immagini del campo agricolo coperte da nuvole, ombre di nuvole, e altre problematiche che invalidano i valori. Per ulteriori informazioni si può utilizzare il seguente [link](https://sentinels.copernicus.eu/web/sentinel/technical-guides/sentinel-2-msi/level-2a/algorithm).
+
 Per realizzare questa operazione di pulizia abbiamo utilizzato le immagini presenti nella cartella scl, la quale contiene un'immagine dove i valori dei pixel sono associati a una specifica categoria. Questa categoria ci permette di discriminare i pixel non validi, infatti, ad ogni tipo di pixel è associato un valore intero.
 Inoltre, abbiamo utilizzato le immagini presenti nella cartella yield. All'interno di questa cartella sono contenuti degli shape file relativi ai campi agricoli; le informazioni contenute in questi campi sono di varia natura, ad esempio abbiamo informazioni relative alla resa, il prodotto secco, etc..
 Di seguito riportiamo un esempio di immagini relative alla cartella scl e yield.
@@ -86,8 +89,12 @@ Si è notato che alcune immagini scl avevano i metadati rovinati, quindi, si è 
 
 ## Seconda fase di ETL
 
-Durante questa fase siamo andati a tagliare le porzioni d'interesse sia dai file scl che dai file .tiff, usando le coordinate degli shape file. Abbiamo utilizzato il metodo Mask della libreria rasterio [(link)](https://rasterio.readthedocs.io/en/latest/api/rasterio.mask.html), inoltre, per ogni nuova immagine abbiamo dovuto generare dei nuovi metadati. Il codice utilizzato si trova nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/ETL2.ipynb).
+Durante questa fase siamo andati a tagliare le porzioni d'interesse sia dai file scl che dai file .tiff, usando le coordinate degli shape file. Abbiamo utilizzato il metodo Mask della libreria rasterio [(link)](https://rasterio.readthedocs.io/en/latest/api/rasterio.mask.html), inoltre, per ogni nuova immagine abbiamo dovuto generare dei nuovi metadati.
+
+Il codice utilizzato si trova nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/ETL2.ipynb).
+
 Al termine di questa operazione ci siamo resi conto che le dimensioni della maschera tagliata erano più piccole rispetto a quelle del campo. Quindi, abbiamo utilizzato la libreria Resampling [(link)](https://rasterio.readthedocs.io/en/latest/topics/resampling.html#resampling-methods), di rasterio. Usando come parametro 'nearest' abbiamo effettuato un operazione di upsampling senza modificare il contenuto informativo della maschera. Al termine dell'esecuzione, le dimensioni delle maschere e dei campi erano uguali.
+
 Di seguito carichiamo un esempio del taglio della maschera (ridimensionata) e del campo.
 
 Maschera e campo: 
@@ -113,6 +120,9 @@ NDVI con smoothing:
 ## Terza fase di ETL
 
 In questa fase siamo andati a pulire ulteriormente le curve, e poi, si è effettuata un'operazione di data augmentation.
+
+Il codice utilizzato si trova nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/ETL2.ipynb).
+
 Dalle curve sono stati eliminati periodi temporali che non erano d'interesse per il progetto e i pixel che avevano sempre valore uguale a zero. Di seguito riportiamo tutte le curve dell'ndvi per ogni pixel, dopo questa operazione di pulizia.
 
 NDVI di tutti i pixel: 
@@ -134,7 +144,7 @@ Serie temporali più FPCA:
 Per risolvere il problema applichiamo nuovamente la funzione di smoothing che abbiamo usato precedentemente.
 Di seguito riportiamo le curve dell'indice vegetale che abbiamo ottenuto.
 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/Final%20Time%20Series.png)
+<img src="https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/Final%20Time%20Series.png" width="500">
 
 La fase di ETL è finita, le curve che abbiamo ottenuto sono pulite e soddisfano tutti i requisiti relativi all'indice vegetale.
 Queste curve saranno utilizzate nella fase successiva, che è quella di addestramento dei modelli e previsione.
@@ -143,11 +153,14 @@ Le serie temporali sono state salvate in formato pickle per poter essere utilizz
 # Deep learning
 
 I modelli uttilizzati in questo task sono Neural Prophet, Fb Prophet, GRU e LSTM. Sono state scelte queste reti perchè rappresentano lo stato dell'arte, cioè, sono le reti più moderne e utilizzate per task di forecasting con serie temporali. Abbiamo proceduto nel seguente modo, le reti sono state addestrate con un diverso numero di epoche, tutte le reti sono state addestrate utilizzando la curva media dei pixel, infine, sono state fatte delle previsioni dando in input serie temporali diverse.
+
 L'obiettivo del task è quello di prevedere l'andamento degli indici vegetali, con particolare attenzione al picco massimo, che avviene agli inizi di Maggio. Quindi, le serie temporali date in input al modello, dopo l'addestramento, non saranno mai complete, infatti, saranno troncate prima di 60 giorni, poi di 90, in questo modo andiamo a prevedere il picco massimo, e infine, di 120 giorni, cioè, facciamo previsione con la serie temporale di un solo mese.
+
 Lo scopo è quello di aiutare l'agricoltore, che, se in possesso di queste informazioni, può intervenire, concimando il terreno, per aumentare la resa del suo campo.
 
 ## Neural Prophet
 Neural Prophet è il successore di Fb Prophet, è una rete deep basata su pytorch, utilizzata per fare forecasting di serie temporali. Si può utilizzare questo [link](https://neuralprophet.com/) per accedere alla documentazione della rete.
+
 Il file in cui abbiamo implementato la rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/NeuralProphet.ipynb).
 Riportiamo di seguito i risultati ottenuti con questa rete, le metriche calcolate sono la mean absolute error (MAE), la mean squared error (MSE) e la Root Mean Squared Error (RMSE).
 
@@ -217,6 +230,7 @@ Il modello non riesce a fare una previsione corretta, quindi, si è deciso di no
 ## GRU and LSTM
 
 Altre due reti che sono state utilizzate sono GRU e LSTM. Queste due reti le abbiamo implementate nello stesso file perchè sono simili, infatti, GRU può essere considerata una variante di LSTM, entrambe sono progettate in modo simile, e, in alcuni casi, producono risultati molto simili. Si può utilizzare questo [link]([https://neuralprophet.com/](https://towardsdatascience.com/understanding-gru-networks-2ef37df6c9be)) per accedere alla documentazione delle reti.
+
 Il file in cui abbiamo implementato le rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/LSTM-GRU.ipynb).
 Riportiamo di seguito i risultati ottenuti con questa rete, le metriche calcolate sono la mean absolute error (MAE), la mean squared error (MSE) e la Root Mean Squared Error (RMSE).
 
@@ -313,6 +327,7 @@ Per creare il dataset siamo partiti da qgis, in questo caso abbiamo effettuato u
 Il codice utilizzato per questa fase è disponibile nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/impResa.ipynb).
 Per questo task la fase di etl è stata più semplice rispetto al task precedente, perchè abbiamo utilizzato le immagine dei campi che avevamo precedentemente pulito.
 Successivamente, abbiamo creato delle nuove strutture dati che mantenessero la corrispondenza tra i pixel e la resa. Le nuove strutture dati contenevano i pixel in maniera sequenziale, quindi avevamo una sola dimensione, e non più X e Y. Durante questa fase abbiamo anche effettuato un'operazione di normalizzazione dei valori delle bande, dividendo per il valore massimo.
+
 Abbiamo utilizzato la funzione di smoothing usata precedentemente per migliorare la qualità dei valori dei pixel.
 Di seguito riportiamo un primo esempio di immagine. Le nuove immagini che abbiamo generato hanno sull'asse delle X le bande, e sull'asse delle Y il tempo.
 
@@ -335,6 +350,7 @@ In questa fase, come prima cosa, siamo andati a dividere il dataset in training 
 
 Per completare questo task, inizialmente, si era deciso di utizzare due reti che erano VGG16 e VGG19, al seguente [link](https://keras.io/api/applications/vgg/) potete trovare la documentazione delle reti. Dopo aver implementato le reti abbiamo proceduto con la fase di training e test.
 Al termine di quest'ultima siamo andati a effettuare delle predizioni, per controllare il risultato che la rete ci generava.
+
 Purtroppo, la rete non generava risultati accettabili, in quanto erano tutti molto vicini al valore medio della resa.
 Di seguito riportiamo uno scatter plot dove sugli assi abbiamo il valore reale della resa di un pixel e il valore predetto della resa di quel pixel.
 
@@ -343,7 +359,9 @@ Scatter error:
 
 ## Tentativi e soluzione
 
-Per cercare di risolvere questo problema, abbiamo iniziato una fase di diagnosi, per cercare di capire cosa generasse questo problema sull'addestramento dei modelli. Abbiamo fatto diversi tentativi cambiando l'architettura della rete, provando ad aggiungere e rimuovere strati densi, coon diverso numero di neuroni. Abbiamo provato diverse combinazioni di funzioni di attivazione e ottimizzatori. Abbiamo provato a implementare un'altra rete che è mobileNet_V2, l'abbiamo addestrata e testata, però, abbiamo sempre ottenuto gli stessi risultati negativi. Le reti erano addestrate sul dataset ImageNet, quindi, abbiamo provato a sbloccare dei layer convoluzionali, ma senza successo. Però, tutti questi tentativi ci hanno portato a pensare che il problema non fosse la rete, ma il dataset.
+Per cercare di risolvere questo problema, abbiamo iniziato una fase di diagnosi, per cercare di capire cosa generasse questo problema sull'addestramento dei modelli. Abbiamo fatto diversi tentativi cambiando l'architettura della rete, provando ad aggiungere e rimuovere strati densi, coon diverso numero di neuroni. Abbiamo provato diverse combinazioni di funzioni di attivazione e ottimizzatori.
+
+Abbiamo provato a implementare un'altra rete che è mobileNet_V2, l'abbiamo addestrata e testata, però, abbiamo sempre ottenuto gli stessi risultati negativi. Le reti erano addestrate sul dataset ImageNet, quindi, abbiamo provato a sbloccare dei layer convoluzionali, ma senza successo. Però, tutti questi tentativi ci hanno portato a pensare che il problema non fosse la rete, ma il dataset.
 
 Abbiamo iniziato a generare diversi tipi di immagini, aumentandone le dimensioni, mettendo la stessa immagine in serie e in parallelo. Abbiamo usato immagini più piccole, riducendo la serie temporale a 30 giorni, abbiamo cercato di aumentare le differenze nelle immagini. Purtroppo, tutti questi tentativi non hanno migliorato l'addestramento delle reti.
 
@@ -378,6 +396,18 @@ MBN:
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/mbn_scatter.png)
 
 Riportiamo di seguito i risultati ottenuti con queste reti, le metriche calcolate sono la mean absolute error (MAE), la mean squared error (MSE) e la Root Mean Squared Error (RMSE).
+
+| Metrica | Valore | Rete |
+| ------------- | ------------- | ------------- |
+| MAE  | 0.067714 | VGG16 |
+| MSE  | 0.007612 | VGG16 |
+| RMSE  | 0.087247 | VGG16 |
+| MAE  | 0.072256 | VGG19 |
+| MSE  | 0.008738 | VGG19 |
+| RMSE  | 0.093477 | VGG19 |
+| MAE  |  | MBN |
+| MSE  |  | MBN |
+| RMSE  |  | MBN |
 
 # Conclusioni
 
