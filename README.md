@@ -348,13 +348,13 @@ Anche questo tentativo non ha generato i risultati sperati, quindi, l'ultima cos
 Infatti, il problema era la funzione [ImageDataGenerator.flow_from_dataframe()](https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator). Questa funziona generava l'input per il modello. Forse, a causa del tipo di immagini che abbiamo generato, questa funzione generava un input completamente sbagliato, infatti, le immagini erano nere. Di seguito carichiamo un esempio.
 
 Input_error: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/error_input.png)
+(https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/error_input.png)
 
 Per risolvere il problema abbiamo implementato una funzione che va a creare l'input per i modelli.
 Questa funzione ci ha permesso di risolvere il problema. Successivamente, abbiamo addestrato tutti i modelli sopra citati. Riportiamo di seguito alcune scatter plot.
 
 VGG16: 
-![alt text]<img src="[https://github.com/favicon.ico](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/vgg16.png)" width="24">
+<img src="(https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/vgg16.png)" width="24">
 
 VGG19: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/vgg19.png)
