@@ -354,7 +354,7 @@ Per risolvere il problema abbiamo implementato una funzione che va a creare l'in
 Questa funzione ci ha permesso di risolvere il problema. Successivamente, abbiamo addestrato tutti i modelli sopra citati. Riportiamo di seguito alcune scatter plot.
 
 VGG16: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/vgg16.png)<img src="[https://github.com/favicon.ico](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/vgg16.png)" width="48">
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/vgg16.png)<img src="[https://github.com/favicon.ico](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/vgg16.png)" width="24">
 
 VGG19: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/vgg19.png)
