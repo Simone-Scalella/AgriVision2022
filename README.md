@@ -132,9 +132,8 @@ Serie temporali più FPCA:
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/Fpca%2BTimeSeries.png)
 
 Per risolvere il problema applichiamo nuovamente la funzione di smoothing che abbiamo usato precedentemente.
-Di seguito riportiamo i risultati ottenuti.
+Di seguito riportiamo le curve dell'indice vegetale che abbiamo ottenuto.
 
-Serie temporali finali: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/Final%20Time%20Series.png)
 
 La fase di ETL è finita, le curve che abbiamo ottenuto sono pulite e soddisfano tutti i requisiti relativi all'indice vegetale.
@@ -309,20 +308,20 @@ L'obiettivo di questo task è quello di prevedere la resa di un pezzetto di camp
 Per creare il dataset siamo partiti da qgis, in questo caso abbiamo effettuato una conversione di tipo, infatti, l'informazione d'interesse era contenuta negli shape file dei campi, quindi, gli abbiamo convertiti in file raster e gli abbiamo salvati.
 
 # ETL
-
+Il codice utilizzato per questa fase è disponibile nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/impResa.ipynb).
 Per questo task la fase di etl è stata più semplice rispetto al task precedente, perchè abbiamo utilizzato le immagine dei campi che avevamo precedentemente pulito.
 Successivamente, abbiamo creato delle nuove strutture dati che mantenessero la corrispondenza tra i pixel e la resa. Le nuove strutture dati contenevano i pixel in maniera sequenziale, quindi avevamo una sola dimensione, e non più X e Y. Durante questa fase abbiamo anche effettuato un'operazione di normalizzazione dei valori delle bande, dividendo per il valore massimo.
 Abbiamo utilizzato la funzione di smoothing usata precedentemente per migliorare la qualità dei valori dei pixel.
 Di seguito riportiamo un primo esempio di immagine. Le nuove immagini che abbiamo generato hanno sull'asse delle X le bande, e sull'asse delle Y il tempo.
 
 First example: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/image1.png)
 
 L'ultima operazione di ETL prevede l'utilizzo della funzione [SplineInterpolation](https://fda.readthedocs.io/en/latest/modules/autosummary/skfda.representation.interpolation.SplineInterpolation.html) che ci ha permesso di ottenere dei valori nel continuo. In questo modo abbiamo aumentato la lunghezza della serie temporale e ne abbiamo migliorato, ulteriormente, la qualità.
 Di seguito riportiamo un esempio di immagine finale del pixel.
 
 Final image: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/150x12.png)
 
 Infine, abbiamo eliminato i pixel che avevano un valore della resa sbagliato, poi abbiamo salvato i dati in formato pickle.
 
