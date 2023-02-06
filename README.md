@@ -397,6 +397,18 @@ MBN:
 
 Riportiamo di seguito i risultati ottenuti con queste reti, le metriche calcolate sono la mean absolute error (MAE), la mean squared error (MSE) e la Root Mean Squared Error (RMSE).
 
+| Metrica | Valore | Rete |
+| ------------- | ------------- | ------------- |
+| MAE  | 0.067714 | VGG16 |
+| MSE  | 0.007612 | VGG16 |
+| RMSE  | 0.087247 | VGG16 |
+| MAE  | 0.072256 | VGG19 |
+| MSE  | 0.008738 | VGG19 |
+| RMSE  | 0.093477 | VGG19 |
+| MAE  |  | MBN |
+| MSE  |  | MBN |
+| RMSE  |  | MBN |
+
 # Conclusioni
 
 Il task è stato terminato con successo. Abbiamo addestrato i modelli con immagini diverse e distribuzioni diverse, per verificare miglioramenti o peggioramenti delle prestazioni. I risultati ottenuti sono abbastanza simili a quelli precedenti, quindi, la qualità della previsione è rimasta la stessa.
