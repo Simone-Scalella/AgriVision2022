@@ -26,7 +26,7 @@ function setup() {
   }
 }
 ```
-Il resto dello script è visibile in questo [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/geoT.ipynb).
+Il resto dello script è visibile in questo [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/ScaricaDataset.ipynb).
 Oltre alle immagini il nostro dataset di partenza aveva anche una cartella scl e una cartella yield all'interno delle quali sono presenti altre immagini che utilizzeremo e descriveremo successivamente.
 Di seguito riportiamo un esempio di immagine dei campi agricoli.
 
@@ -76,24 +76,24 @@ E' possibile osservare come l'immagine scl rappresenti una porzione dell'Italia,
 Area di interesse: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ritaglio.png)
 
-Prima del taglio abbiamo dovuto effettuare una operazione di riordinamento dei file scl, in qunato si presentavano all'interno di diverse cartelle, quindi si è deciso di spostarle, in maniera ordinata, all'interno di un unica cartella. Il codice utilizzato è nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/autoRename.py).
+Prima del taglio abbiamo dovuto effettuare una operazione di riordinamento dei file scl, in qunato si presentavano all'interno di diverse cartelle, quindi si è deciso di spostarle, in maniera ordinata, all'interno di un unica cartella. Il codice utilizzato è nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/ETL1.ipynb).
 Di seguito carichiamo un'immagine della directory precedente.
 
 Vecchia directory: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/scl_directory.png)
 
-Si è notato che alcune immagini scl avevano i metadati rovinati, quindi, si è proceduto a rigenerarli. Il codice utilizzato è nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/geoTLeoMakeTransform.ipynb).
+Si è notato che alcune immagini scl avevano i metadati rovinati, quindi, si è proceduto a rigenerarli. Il codice utilizzato è nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/ETL1.ipynb).
 
 ## Seconda fase di ETL
 
-Durante questa fase siamo andati a tagliare le porzioni d'interesse sia dai file scl che dai file .tiff, usando le coordinate degli shape file. Abbiamo utilizzato il metodo Mask della libreria rasterio [(link)](https://rasterio.readthedocs.io/en/latest/api/rasterio.mask.html), inoltre, per ogni nuova immagine abbiamo dovuto generare dei nuovi metadati. Il codice utilizzato si trova nel seguente file...?
+Durante questa fase siamo andati a tagliare le porzioni d'interesse sia dai file scl che dai file .tiff, usando le coordinate degli shape file. Abbiamo utilizzato il metodo Mask della libreria rasterio [(link)](https://rasterio.readthedocs.io/en/latest/api/rasterio.mask.html), inoltre, per ogni nuova immagine abbiamo dovuto generare dei nuovi metadati. Il codice utilizzato si trova nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/ETL2.ipynb).
 Al termine di questa operazione ci siamo resi conto che le dimensioni della maschera tagliata erano più piccole rispetto a quelle del campo. Quindi, abbiamo utilizzato la libreria Resampling [(link)](https://rasterio.readthedocs.io/en/latest/topics/resampling.html#resampling-methods), di rasterio. Usando come parametro 'nearest' abbiamo effettuato un operazione di upsampling senza modificare il contenuto informativo della maschera. Al termine dell'esecuzione, le dimensioni delle maschere e dei campi erano uguali.
 Di seguito carichiamo un esempio del taglio della maschera (ridimensionata) e del campo.
 
 Maschera e campo: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/mask.png)
 
-A questo punto possiamo applicare la maschera al campo per togliere tutti i pixel che non sono d'interesse per le analisi. Il codice utilizzato si trova nel seguente file...?
+A questo punto possiamo applicare la maschera al campo per togliere tutti i pixel che non sono d'interesse per le analisi. Il codice utilizzato si trova nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/ETL2.ipynb).
 Di seguito carichiamo un esempio di campo filtrato.
 
 Campo filtrato: 
@@ -116,14 +116,14 @@ In questa fase siamo andati a pulire ulteriormente le curve, e poi, si è effett
 Dalle curve sono stati eliminati periodi temporali che non erano d'interesse per il progetto e i pixel che avevano sempre valore uguale a zero. Di seguito riportiamo tutte le curve dell'ndvi per ogni pixel, dopo questa operazione di pulizia.
 
 NDVI di tutti i pixel: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/NDVI_4All.png)
 
 Successivamente si è proceduto con l'operazione di data augmentation, utilizzando la libreria scikit-fda [(link)](https://fda.readthedocs.io/en/latest/auto_examples/plot_fpca.html).
 La FPCA ci permette di estrarre una funzione continua dalle nostre serie temporali, quindi, abbiamo una curva composta da 150 punti.
 Di seguito mostriamo l'immagine della funzione.
 
 FPCA: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/fpca.png)
 
 Ottenuta la funzione procediamo a sommarla a tutti i pixel, in questo modo aumentiamo le dimensioni delle serie temporali.
 Il risultato ottenuto non è ideale, possiamo osservare dalla prossima immagine, i picchi relativi ai valori reali, che possono discostare dalla funzione.
