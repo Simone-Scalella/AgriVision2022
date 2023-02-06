@@ -116,14 +116,14 @@ In questa fase siamo andati a pulire ulteriormente le curve, e poi, si è effett
 Dalle curve sono stati eliminati periodi temporali che non erano d'interesse per il progetto e i pixel che avevano sempre valore uguale a zero. Di seguito riportiamo tutte le curve dell'ndvi per ogni pixel, dopo questa operazione di pulizia.
 
 NDVI di tutti i pixel: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/NDVI_4All.png)
 
 Successivamente si è proceduto con l'operazione di data augmentation, utilizzando la libreria scikit-fda [(link)](https://fda.readthedocs.io/en/latest/auto_examples/plot_fpca.html).
 La FPCA ci permette di estrarre una funzione continua dalle nostre serie temporali, quindi, abbiamo una curva composta da 150 punti.
 Di seguito mostriamo l'immagine della funzione.
 
 FPCA: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/fpca.png)
 
 Ottenuta la funzione procediamo a sommarla a tutti i pixel, in questo modo aumentiamo le dimensioni delle serie temporali.
 Il risultato ottenuto non è ideale, possiamo osservare dalla prossima immagine, i picchi relativi ai valori reali, che possono discostare dalla funzione.
