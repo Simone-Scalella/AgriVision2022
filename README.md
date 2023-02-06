@@ -337,7 +337,7 @@ Purtroppo, la rete non generava risultati accettabili, in quanto erano tutti mol
 Di seguito riportiamo uno scatter plot dove sugli assi abbiamo il valore reale della resa di un pixel e il valore predetto della resa di quel pixel.
 
 Scatter error: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/scatter_error.png)
+<img src="https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/scatter_error.png" width="500">
 
 ## Tentativi e soluzione
 
