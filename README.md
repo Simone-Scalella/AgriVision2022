@@ -405,9 +405,9 @@ Riportiamo di seguito i risultati ottenuti con queste reti, le metriche calcolat
 | MAE  | 0.072256 | VGG19 |
 | MSE  | 0.008738 | VGG19 |
 | RMSE  | 0.093477 | VGG19 |
-| MAE  |  | MBN |
-| MSE  |  | MBN |
-| RMSE  |  | MBN |
+| MAE  | 0.065692 | MBN |
+| MSE  | 0.007001 | MBN |
+| RMSE  | 0.083672 | MBN |
 
 # Conclusioni
 
