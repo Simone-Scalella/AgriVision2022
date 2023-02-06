@@ -129,7 +129,7 @@ Ottenuta la funzione procediamo a sommarla a tutti i pixel, in questo modo aumen
 Il risultato ottenuto non è ideale, possiamo osservare dalla prossima immagine, i picchi relativi ai valori reali, che possono discostare dalla funzione.
 
 Serie temporali più FPCA: 
-![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/Fpca%2BTimeSeries.png)
 
 Per risolvere il problema applichiamo nuovamente la funzione di smoothing che abbiamo usato precedentemente.
 Di seguito riportiamo i risultati ottenuti.
