@@ -344,8 +344,16 @@ Scatter error:
 ## Tentativi e soluzione
 
 Per cercare di risolvere questo problema, abbiamo iniziato una fase di diagnosi, per cercare di capire cosa generasse questo problema sull'addestramento dei modelli. Abbiamo fatto diversi tentativi cambiando l'architettura della rete, provando ad aggiungere e rimuovere strati densi, coon diverso numero di neuroni. Abbiamo provato diverse combinazioni di funzioni di attivazione e ottimizzatori. Abbiamo provato a implementare un'altra rete che è mobileNet_V2, l'abbiamo addestrata e testata, però, abbiamo sempre ottenuto gli stessi risultati negativi. Le reti erano addestrate sul dataset ImageNet, quindi, abbiamo provato a sbloccare dei layer convoluzionali, ma senza successo. Però, tutti questi tentativi ci hanno portato a pensare che il problema non fosse la rete, ma il dataset.
+
 Abbiamo iniziato a generare diversi tipi di immagini, aumentandone le dimensioni, mettendo la stessa immagine in serie e in parallelo. Abbiamo usato immagini più piccole, riducendo la serie temporale a 30 giorni, abbiamo cercato di aumentare le differenze nelle immagini. Purtroppo, tutti questi tentativi non hanno migliorato l'addestramento delle reti.
-I precedenti tentativi ci hanno portato a pensare di avere un problema di sbilanciamento dei dati, o scarsa correlazione, all'interno del dataset. Quindi abbiamo costruito una funzione ideale che restituiva un valore della resa per un certo valore dell'ndvi. Quindi ad alti valori dell'ndvi abbiamo assogiato alti valori di resa. Successivamente, abbiamo generato un dataset fortemente correlato, che chiameremo dataset sintetico. 
+
+I precedenti tentativi ci hanno portato a pensare di avere un problema di sbilanciamento dei dati, o scarsa correlazione, all'interno del dataset. Quindi abbiamo costruito una funzione ideale che restituiva un valore della resa per un certo valore dell'ndvi. Quindi ad alti valori dell'ndvi abbiamo assogiato alti valori di resa. Successivamente, abbiamo generato un dataset fortemente correlato, che chiameremo dataset sintetico. Di seguito carichiamo il grafico della funzione.
+
+Funzione della resa: 
+<img src="https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/funz_resa.png" width="500">
+
+Il file in cui abbiamo implementato e utilizzato la funzione per addestrare le reti è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/ResaIdeale(VGG).ipynb)
+
 Anche questo tentativo non ha generato i risultati sperati, quindi, l'ultima cosa da diagnosticare era l'input del modello.
 Infatti, il problema era la funzione [ImageDataGenerator.flow_from_dataframe()](https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator). Questa funziona generava l'input per il modello. Forse, a causa del tipo di immagini che abbiamo generato, questa funzione generava un input completamente sbagliato, infatti, le immagini erano nere. Di seguito carichiamo un esempio.
 
@@ -353,7 +361,12 @@ Input_error:
 <img src="https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/error_input.png" width="200">
 
 Per risolvere il problema abbiamo implementato una funzione che va a creare l'input per i modelli.
-Questa funzione ci ha permesso di risolvere il problema. Successivamente, abbiamo addestrato tutti i modelli sopra citati. Riportiamo di seguito alcune scatter plot.
+Questa funzione ci ha permesso di risolvere il problema.
+
+Le reti VGG16 e VGG19 sono state implementate nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/VGG.ipynb).
+La rete MobileNetV2 è stata implementata nel seguente [file](https://github.com/Accout-Personal/AgriVision2022/blob/main/mbn.ipynb).
+
+Successivamente, abbiamo addestrato tutti i modelli sopra citati. Riportiamo di seguito alcune scatter plot.
 
 VGG16: 
 <img src="https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/vgg16.png" width="550">
