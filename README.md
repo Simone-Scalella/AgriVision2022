@@ -316,3 +316,54 @@ Di seguito riportiamo un primo esempio di immagine. Le nuove immagini che abbiam
 
 First example: 
 ![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+L'ultima operazione di ETL prevede l'utilizzo della funzione [SplineInterpolation](https://fda.readthedocs.io/en/latest/modules/autosummary/skfda.representation.interpolation.SplineInterpolation.html) che ci ha permesso di ottenere dei valori nel continuo. In questo modo abbiamo aumentato la lunghezza della serie temporale e ne abbiamo migliorato, ulteriormente, la qualità.
+Di seguito riportiamo un esempio di immagine finale del pixel.
+
+Final image: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+Infine, abbiamo eliminato i pixel che avevano un valore della resa sbagliato, poi abbiamo salvato i dati in formato pickle.
+
+# Deep learning
+
+In questa fase, come prima cosa, siamo andati a dividere il dataset in training e test, facendo una suddivisione randomica. Poi abbiamo salvato le immagini dei pixel all'interno delle corrispondenti cartelle.
+
+## Problematiche nella fase di Deep learning
+
+Per completare questo task, inizialmente, si era deciso di utizzare due reti che erano VGG16 e VGG19, al seguente [link](https://keras.io/api/applications/vgg/) potete trovare la documentazione delle reti. Dopo aver implementato le reti abbiamo proceduto con la fase di training e test.
+Al termine di quest'ultima siamo andati a effettuare delle predizioni, per controllare il risultato che la rete ci generava.
+Purtroppo, la rete non generava risultati accettabili, in quanto erano tutti molto vicini al valore medio della resa.
+Di seguito riportiamo uno scatter plot dove sugli assi abbiamo il valore reale della resa di un pixel e il valore predetto della resa di quel pixel.
+
+Scatter error: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+## Tentativi e soluzione
+
+Per cercare di risolvere questo problema, abbiamo iniziato una fase di diagnosi, per cercare di capire cosa generasse questo problema sull'addestramento dei modelli. Abbiamo fatto diversi tentativi cambiando l'architettura della rete, provando ad aggiungere e rimuovere strati densi, coon diverso numero di neuroni. Abbiamo provato diverse combinazioni di funzioni di attivazione e ottimizzatori. Abbiamo provato a implementare un'altra rete che è mobileNet_V2, l'abbiamo addestrata e testata, però, abbiamo sempre ottenuto gli stessi risultati negativi. Le reti erano addestrate sul dataset ImageNet, quindi, abbiamo provato a sbloccare dei layer convoluzionali, ma senza successo. Però, tutti questi tentativi ci hanno portato a pensare che il problema non fosse la rete, ma il dataset.
+Abbiamo iniziato a generare diversi tipi di immagini, aumentandone le dimensioni, mettendo la stessa immagine in serie e in parallelo. Abbiamo usato immagini più piccole, riducendo la serie temporale a 30 giorni, abbiamo cercato di aumentare le differenze nelle immagini. Purtroppo, tutti questi tentativi non hanno migliorato l'addestramento delle reti.
+I precedenti tentativi ci hanno portato a pensare di avere un problema di sbilanciamento dei dati, o scarsa correlazione, all'interno del dataset. Quindi abbiamo costruito una funzione ideale che restituiva un valore della resa per un certo valore dell'ndvi. Quindi ad alti valori dell'ndvi abbiamo assogiato alti valori di resa. Successivamente, abbiamo generato un dataset fortemente correlato, che chiameremo dataset sintetico. 
+Anche questo tentativo non ha generato i risultati sperati, quindi, l'ultima cosa da diagnosticare era l'input del modello.
+Infatti, il problema era la funzione [ImageDataGenerator.flow_from_dataframe()](https://www.tensorflow.org/api_docs/python/tf/keras/preprocessing/image/ImageDataGenerator). Questa funziona generava l'input per il modello. Forse, a causa del tipo di immagini che abbiamo generato, questa funzione generava un input completamente sbagliato, infatti, le immagini erano nere. Di seguito carichiamo un esempio.
+
+Input_error: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+Per risolvere il problema abbiamo implementato una funzione che va a creare l'input per i modelli.
+Questa funzione ci ha permesso di risolvere il problema. Successivamente, abbiamo addestrato tutti i modelli sopra citati. Riportiamo di seguito alcune scatter plot.
+
+VGG16: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+VGG19: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+MBN: 
+![alt text](https://github.com/Accout-Personal/AgriVision2022/blob/main/readImage/ndvi_smooth.png)
+
+Riportiamo di seguito i risultati ottenuti con queste reti, le metriche calcolate sono la mean absolute error (MAE), la mean squared error (MSE) e la Root Mean Squared Error (RMSE).
+
+# Conclusioni
+
+Il task è stato terminato con successo. Abbiamo addestrato i modelli con immagini diverse e distribuzioni diverse, per verificare miglioramenti o peggioramenti delle prestazioni. I risultati ottenuti sono abbastanza simili a quelli precedenti, quindi, la qualità della previsione è rimasta la stessa.
