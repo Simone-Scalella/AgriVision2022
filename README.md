@@ -229,7 +229,7 @@ Il modello non riesce a fare una previsione corretta, quindi, si è deciso di no
 
 ## GRU and LSTM
 
-Altre due reti che sono state utilizzate sono GRU e LSTM. Queste due reti le abbiamo implementate nello stesso file perchè sono simili, infatti, GRU può essere considerata una variante di LSTM, entrambe sono progettate in modo simile, e, in alcuni casi, producono risultati molto simili. Si può utilizzare questo [link]([https://neuralprophet.com/](https://towardsdatascience.com/understanding-gru-networks-2ef37df6c9be)) per accedere alla documentazione delle reti.
+Altre due reti che sono state utilizzate sono GRU e LSTM. Queste due reti le abbiamo implementate nello stesso file perchè sono simili, infatti, GRU può essere considerata una variante di LSTM, entrambe sono progettate in modo simile, e, in alcuni casi, producono risultati molto simili. Si può utilizzare questo [link](https://towardsdatascience.com/understanding-gru-networks-2ef37df6c9be) per accedere alla documentazione delle reti.
 
 Il file in cui abbiamo implementato le rete è il [seguente](https://github.com/Accout-Personal/AgriVision2022/blob/main/LSTM-GRU.ipynb).
 Riportiamo di seguito i risultati ottenuti con questa rete, le metriche calcolate sono la mean absolute error (MAE), la mean squared error (MSE) e la Root Mean Squared Error (RMSE).
