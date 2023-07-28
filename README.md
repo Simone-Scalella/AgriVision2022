@@ -412,3 +412,7 @@ Riportiamo di seguito i risultati ottenuti con queste reti, le metriche calcolat
 # Conclusioni
 
 Il task è stato terminato con successo. Abbiamo addestrato i modelli con immagini diverse e distribuzioni diverse, per verificare miglioramenti o peggioramenti delle prestazioni. I risultati ottenuti sono abbastanza simili a quelli precedenti, quindi, la qualità della previsione è rimasta la stessa.
+
+### Autori
+* Zhang Yihang: [Github](https://github.com/Accout-Personal)
+* Scalella Simone: [Github](https://github.com/Simone-Scalella)
